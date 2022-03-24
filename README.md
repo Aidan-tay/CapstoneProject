@@ -1,6 +1,6 @@
 <GROUP NAME>
 1.
 2. alysa
-3.
+3. Amos Young
 4.
 5.
