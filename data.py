@@ -1,4 +1,6 @@
-
+def TypeError():
+    return 'wrong type for data'
+    
 class Field:
     def __init__(self, name: str, label: str):
         self.name = name
@@ -7,11 +9,17 @@ class Field:
     @classmethod
     def validate(cls): #what am i supposed to validate and what is this function supposed to return
         pass
-
+        
 class String(Field):
     def __init__(self, name: str, label: str):
         super().__init__(name, label)
     #validate function same as parent class
+
+    @classmethod #is it supposed to be like this?
+    def validate(cls): 
+        if type(self.name) != str or type(self.label) != str:
+            return TypeError
+
 
 class Integer(Field):
     def __init__(self, name: str, label: str):
