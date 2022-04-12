@@ -14,13 +14,13 @@ class Record:
 
     def as_dict(self):
         fields_dict = {}
-        for field in fields:
+        for field in self.fields:
             fields_dict[field.name] = getattr(self, field.name)
         return fields_dict
 
     def fields_as_dict(self):
         fields_dict = {}
-        for field in fields:
+        for field in self.fields:
             fields_dict[field.name] = field.label
         return fields_dict
 
