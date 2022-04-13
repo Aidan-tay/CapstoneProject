@@ -22,7 +22,8 @@ class Record:
     def fields_as_dict(cls):
         fields_dict = {}
         for field in cls.fields:
-            fields_dict[field.name] = field.label
+            if field.label != "ID":
+                fields_dict[field.name] = field.label
         return fields_dict
 
     def get(self, attr):
@@ -42,13 +43,13 @@ class Activity(Record):
         return "Activity"
     
 class Membership(Record):
-    fields = [data.String("role", "Role of Member"), data.Integer("student_id", "Id of Student"), data.Integer("club_id", "Id of Club")]
+    fields = [data.String("role", "Role of Member"), data.Integer("student_id", "ID"), data.Integer("club_id", "ID")]
 
     def __str__(self):
         return "Membership"
 
 class Participation(Record):
-    fields = [data.Category("category","Category"), data.String("role", "Role of Member"), data.Integer("student_id", "Id of Student"), data.Integer("activity_id", "Id of Activity")]
+    fields = [data.Category("category","Category"), data.String("role", "Role of Member"), data.Integer("student_id", "ID"), data.Integer("activity_id", "ID")]
 
     def __str__(self):
         return "Participation"
