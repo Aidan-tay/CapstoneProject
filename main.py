@@ -5,7 +5,7 @@ import storage
 app = Flask(__name__)
 models = {str(model.Club): model.Club, str(model.Activity): model.Activity}
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def splash():
     return render_template("splash.html")
 
@@ -50,3 +50,16 @@ def add_result():
 
     return render_template("add_result.html", id = id, field_inputs = field_inputs, error = error, entity_type = entity_type)
 
+@app.route("/view", methods=['POST', 'GET'])
+def view():
+    return render_template("view.html", entity_names = ["Student", "Class", "Club", "Activity"])
+
+@app.route("/view/select", methods=['POST', 'GET'])
+def view_select():
+    entity_type = request.form["entity_type"]
+    entity_list = storage.find_all(entity_type, field="name")
+    return render_template("view_select.html", entity_type = entity_type, entity_list = entity_list)
+
+@app.route("/view/result", methods=['GET'])
+def view_result():
+    return render_template("view_result.html", field_attributes = storage.find_one(request.form["entity_type"], name = request.form["name"]))
