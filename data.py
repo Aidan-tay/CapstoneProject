@@ -20,6 +20,18 @@ class String(Field):
     def validate(cls, arg: str): 
         if type(arg) != str:
             raise TypeError(f'{arg} is not string data type')
+        elif arg == "":
+            raise InvalidDataError("A field can not be empty")
+
+        return True
+
+class OptionalString(Field):
+    def __init__(self, name: str, label: str):
+        super().__init__(name, label)
+
+    def validate(cls, arg: str): 
+        if type(arg) != str:
+            raise TypeError(f'{arg} is not string data type')
 
         return True
 
@@ -29,9 +41,26 @@ class Integer(Field):
         super().__init__(name, label)
 
     @classmethod
-    def validate(cls, arg: int): 
-        if type(arg) != int:
-            raise TypeError(f'{arg} is not integer data type')
+    def validate(cls, arg: str): 
+        if arg == "":
+            raise InvalidDataError("A field can not be empty")
+            
+        if not arg.isnumeric():
+            raise TypeError(f'{arg} is not a number.')
+
+        return True
+
+class OptionalInteger(Field):
+    def __init__(self, name: str, label: str):
+        super().__init__(name, label)
+
+    @classmethod
+    def validate(cls, arg: str): 
+        if arg == "":
+            return True
+            
+        if not arg.isnumeric():
+            raise TypeError(f'{arg} is not a number.')
 
         return True
 
@@ -41,10 +70,13 @@ class Age(Field):
 
     @classmethod
     def validate(cls, arg: int): 
-        if type(arg) != int:
-            raise TypeError(f'{arg} is not integer data type')
+        if arg == "":
+            raise InvalidDataError("A field can not be empty")
+            
+        if not arg.isnumeric():
+            raise TypeError(f'{arg} is not a number.')
 
-        if 20 > arg > 0: #check that age is of acceptable range for a JC student 
+        elif int(arg) > 20 or int(arg) < 10: #check that age is of acceptable range for a JC student 
             raise RangeError(f'{arg} is out of acceptable range')
 
         return True 
@@ -56,11 +88,13 @@ class Year(Field):
         
     @classmethod
     def validate(cls, arg: int):
-        
-        if type(arg) != int:
-                raise TypeError(f'{arg} is not integer data type')
+        if arg == "":
+            raise InvalidDataError("A field can not be empty")
+            
+        if not arg.isnumeric():
+            raise TypeError(f'{arg} is not a number.')
     
-        if 3000 > arg > 2000: #limit to the 21th century 
+        elif 3000 < int(arg) or int(arg) < 2000: #limit to the 21th century 
             raise RangeError(f'{arg} is out of acceptable range')
     
         return True
@@ -71,10 +105,29 @@ class Date(Field):
         
     @classmethod
     def validate(cls, date_text: str):
+        if date_text == "":
+            raise InvalidDataError("A field can not be empty")
+            
         try:
             datetime.strptime(date_text, '%Y%m%d')
         except TypeError:
-            raise TypeError('Wrong data type, should be string')
+            raise TypeError('Date is invalid.')
+        except ValueError:
+            raise ValueError("Incorrect data format, should be YYYYMMDD")
+
+class OptionalDate(Field):
+    def __init__(self, name: str, label: str):
+        super().__init__(name, label)
+        
+    @classmethod
+    def validate(cls, date_text: str):
+        if date_text == "":
+            return True
+            
+        try:
+            datetime.strptime(date_text, '%Y%m%d')
+        except TypeError:
+            raise TypeError('Date is invalid.')
         except ValueError:
             raise ValueError("Incorrect data format, should be YYYYMMDD")
         
@@ -85,6 +138,6 @@ class Category(Field):
     @classmethod
     def validate(cls, arg):
         if arg not in ["Achievement", "Enrichment", "Leadership", "Service"]:
-            raise InvalidDataError('Role or category not found')
+            raise InvalidDataError('Category not found')
             
         
