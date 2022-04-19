@@ -83,8 +83,8 @@ class Category(Field):
         super().__init__(name, label)
         
     @classmethod
-    def validate(cls, arg, conditions):
-        if arg not in conditions:
+    def validate(cls, arg):
+        if arg not in ["Achievement", "Enrichment", "Leadership", "Service"]:
             raise InvalidDataError('Role or category not found')
             
         
