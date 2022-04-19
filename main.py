@@ -3,8 +3,8 @@ import model
 import storage
 
 app = Flask(__name__)
-models = {str(model.Club): model.Club, str(model.Activity): model.Activity}
-relationships = {str(model.Club): model.Membership, str(model.Activity): model.Participation}
+models = {model.Club.name: model.Club, model.Activity.name: model.Activity}
+relationships = {model.Club.name: model.Membership, model.Activity.name: model.Participation}
 
 @app.route("/", methods=['GET'])
 def splash():
@@ -126,7 +126,7 @@ def edit_add_result():
         error = e
 
     if error == None:
-        storage.insert(str(relationships[entity_type]), record.as_dict())
+        storage.insert(relationships[entity_type].name, record.as_dict())
         
     return render_template("edit_add_result.html", entity_type=entity_type, id=id, error = error, field_inputs=field_inputs)
 
@@ -146,7 +146,7 @@ def edit_relationship():
     field_labels = relationships[entity_type].fields_as_dict()
     
     student_id = storage.find_one("Student", name=name)["id"]
-    data = storage.findone(str(relationships[entity_type]), **{"student_id":student_id, f"{entity_type.lower()}_id":id})
+    data = storage.findone(relationships[entity_type].name, **{"student_id":student_id, f"{entity_type.lower()}_id":id})
 
     field_inputs = {}
     for key in field_labels.keys():
@@ -174,9 +174,9 @@ def edit_result():
             error = e
 
         if error == None:
-            storage.update(str(relationships[entity_type]), record.as_dict(), **{"student_id":student_id, f"{entity_type.lower()}_id":id})
+            storage.update(relationships[entity_type].name, record.as_dict(), **{"student_id":student_id, f"{entity_type.lower()}_id":id})
 
     elif action == "Delete":
-        storage.delete(str(relationships[entity_type]), **{"student_id":student_id, f"{entity_type.lower()}_id":id})
+        storage.delete(relationships[entity_type].name, **{"student_id":student_id, f"{entity_type.lower()}_id":id})
     
     return render_template("edit_result.html", entity_type=entity_type, id=id, name=name)
