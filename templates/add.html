@@ -3,8 +3,20 @@
         <title>Add</title>
     </head>
     <body>
-        <form action=/add/create>
-            
-        </form>
+        {% for x in entity_list %}
+<       <form action="/add/create" method="POST">
+        <input type="hidden" name="entity_type" value="{{ x }}">
+        <input type='submit' value="{{ x }}">
+        {% endfor %}
+       
     </body>
 </html>
+
+ <!-- choose btwn club & activity
+redirect to /add/create
+
+
+ <form action="/add/create" method="GET">
+            <input type="submit" value="go to /add/create">
+        </form>
+-->

@@ -180,3 +180,10 @@ def edit_result():
         storage.delete(str(relationships[entity_type]), **{"student_id":student_id, f"{entity_type.lower()}_id":id})
     
     return render_template("edit_result.html", entity_type=entity_type, id=id, name=name)
+
+
+
+
+########FRONTPRAWN RANDOM SHIT JS IGNORE IF I FORGOT DELETE BEFORE MERGE######    
+
+app.run("0.0.0.0")
