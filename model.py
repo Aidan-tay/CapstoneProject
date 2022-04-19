@@ -43,13 +43,13 @@ class Activity(Record):
         return "Activity"
     
 class Membership(Record):
-    fields = [data.String("role", "Role of Member"), data.Integer("student_id", "ID"), data.Integer("club_id", "ID")]
+    fields = [data.Integer("student_id", "ID"), data.Integer("club_id", "ID"), data.String("role", "Role of Member")]
 
     def __str__(self):
         return "Membership"
 
 class Participation(Record):
-    fields = [data.Category("category","Category"), data.String("role", "Role of Member"), data.Integer("student_id", "ID"), data.Integer("activity_id", "ID")]
+    fields = [data.Integer("student_id", "ID"), data.Integer("activity_id", "ID"), data.Category("category","Category"), data.String("role", "Role of Member")]
 
     def __str__(self):
         return "Participation"
