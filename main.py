@@ -3,8 +3,8 @@ import model
 import storage
 
 app = Flask(__name__)
-models = {str(model.Club): model.Club, str(model.Activity): model.Activity}
-relationships = {str(model.Club): model.Membership, str(model.Activity): model.Participation}
+models = {"Club": model.Club, "Actvity": model.Activity}
+relationships = {"Club": model.Membership, "Actvity": model.Participation}
 
 @app.route("/", methods=['GET'])
 def splash():
