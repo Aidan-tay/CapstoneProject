@@ -21,9 +21,9 @@ def add():
 
 @app.route("/add/create", methods=['POST', 'GET'])
 def add_create():
+    entity_type = request.args["type"]
     form = dict(request.form)
-    
-    entity_type = form["entity_type"]
+
     field_labels = models[entity_type].fields_as_dict()
     field_inputs = {}
     for key in field_labels.keys():
@@ -34,9 +34,9 @@ def add_create():
 
 @app.route("/add/result", methods=['POST', 'GET'])
 def add_result():
+    entity_type = request.args["type"]
     form = dict(request.form)
     
-    entity_type = form.pop("entity_type")
     error = None
     field_inputs = form
     form["id"] = storage.find_lastest_id(entity_type) + 1
