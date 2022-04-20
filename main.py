@@ -3,6 +3,7 @@ import model
 import storage
 
 app = Flask(__name__)
+
 models = {model.Club.name: model.Club, model.Activity.name: model.Activity}
 relationships = {model.Club.name: model.Membership, model.Activity.name: model.Participation}
 
@@ -218,3 +219,10 @@ def edit_result():
         storage.delete(relationships[entity_type].name, **{"student_id":student_id, f"{entity_type.lower()}_id":id})
     
     return render_template("edit_result.html", entity_type=entity_type, id=id, name=name)
+
+
+
+
+########FRONTPRAWN RANDOM SHIT JS IGNORE IF I FORGOT DELETE BEFORE MERGE######    
+
+app.run("0.0.0.0")
