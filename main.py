@@ -115,12 +115,17 @@ def edit_add_result():
     form = dict(request.form)
     name = form.pop("name")
     field_inputs = form
+
+    student_id_list = storage.find_some(relationships[entity_type].name, **{f"{entity_type.lower()}_id":id})
+    student_id_list = [x["student_id"] for x in student_id_list]
     
     form["student_id"] = storage.find_one("Student", name=name)["id"]
     form[f"{entity_type.lower()}_id"] = id
 
     error = None
     try:
+        if form["student_id"] in student_id_list:
+            raise TypeError(f"{name} is already in {entity_type}.")
         record = relationships[entity_type].from_dict(form)
     except Exception as e:
         error = e
@@ -134,7 +139,13 @@ def edit_add_result():
 def edit_student():
     entity_type = request.args["type"]
     id = request.args["id"]
-    student_list = storage.find_all("Student", field="name")
+    
+    student_id_list = storage.find_some(relationships[entity_type].name, **{f"{entity_type.lower()}_id":id})
+    student_id_list = [x["student_id"] for x in student_id_list]
+    
+    student_list = []
+    for student_id in student_id_list:
+        student_list.append(storage.find_one("Student", id=student_id)["name"])
     
     return render_template("edit_student.html", entity_type=entity_type, id=id, student_list=student_list)
 
