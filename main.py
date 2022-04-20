@@ -99,14 +99,14 @@ def edit_select_type():
 
 @app.route("/edit/select/name", methods=['POST', 'GET'])
 def edit_select_name():
-    entity_type = request.form["entity_type"]
+    entity_type = request.args["type"]
     entity_list = storage.find_all(entity_type, field="name")
 
     return render_template("edit_select_name.html", entity_type=entity_type, entity_list=entity_list)
 
 @app.route("/edit/select/confirm", methods=['POST', 'GET'])
 def edit_select_confirm():
-    entity_type = request.form["entity_type"]
+    entity_type = request.args["type"]
     field_attributes = storage.find_one(entity_type, name = request.form["name"])
     id = field_attributes.pop("id")
 
