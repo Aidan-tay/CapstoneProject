@@ -29,17 +29,19 @@ def add_create():
     for key in field_labels.keys():
         if form.get(key) != None:
            field_inputs[key] = form.get(key)
-    return render_template("add_create.html", entity_type=entity_type, field_labels = field_labels, field_inputs = field_inputs)
+            
+    return render_template("add_create.html", entity_type = entity_type, field_labels = field_labels, field_inputs = field_inputs)
 
 @app.route("/add/result", methods=['POST', 'GET'])
 def add_result():
     entity_type = request.args["type"]
     form = dict(request.form)
-    
+
+    id = None
     error = None
     field_inputs = form
     form["id"] = storage.find_lastest_id(entity_type) + 1
-    
+
     try:
         record = models[entity_type].from_dict(form)
     except Exception as e:

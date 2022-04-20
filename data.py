@@ -45,7 +45,7 @@ class Integer(Field):
         if arg == "":
             raise InvalidDataError("A field can not be empty")
             
-        if not arg.isnumeric():
+        if not isinstance(arg, int) and not arg.isnumeric():
             raise TypeError(f'{arg} is not a number.')
 
         return True
@@ -109,7 +109,7 @@ class Date(Field):
             raise InvalidDataError("A field can not be empty")
             
         try:
-            datetime.strptime(date_text, '%Y%m%d')
+            datetime.datetime.strptime(date_text, '%Y%m%d')
         except TypeError:
             raise TypeError('Date is invalid.')
         except ValueError:
@@ -125,7 +125,7 @@ class OptionalDate(Field):
             return True
             
         try:
-            datetime.strptime(date_text, '%Y%m%d')
+            datetime.datetime.strptime(date_text, '%Y%m%d')
         except TypeError:
             raise TypeError('Date is invalid.')
         except ValueError:

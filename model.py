@@ -39,7 +39,7 @@ class Club(Record):
 
     
 class Activity(Record):
-    fields = [data.Integer("id","ID"), data.String("name", "Name of Activity"), data.Date("start_date", "Start Date"), data.OptionalDate("end_date", "End Date"), data.String("description", "Description")]
+    fields = [data.Integer("id","ID"), data.String("name", "Name of Activity"), data.Date("start_date", "Start Date"), data.OptionalDate("end_date", "End Date (Optional)"), data.String("description", "Description")]
     name = "Activity"
 
     def __str__(self):
