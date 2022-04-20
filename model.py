@@ -2,6 +2,7 @@ import data
 
 class Record:
     fields = None
+    name = None
     def __init__(self, **kwargs):
         for field in self.fields:
             value = kwargs[field.name]
@@ -31,6 +32,7 @@ class Record:
                 
 class Club(Record):
     fields = [data.Integer("id","ID"), data.String("name", "Name of Club")]
+    name = "Club"
 
     def __str__(self):
         return "Club"
@@ -38,18 +40,21 @@ class Club(Record):
     
 class Activity(Record):
     fields = [data.Integer("id","ID"), data.String("name", "Name of Activity"), data.Date("start_date", "Start Date"), data.OptionalDate("end_date", "End Date"), data.String("description", "Description")]
+    name = "Activity"
 
     def __str__(self):
         return "Activity"
     
 class Membership(Record):
     fields = [data.Integer("student_id", "ID"), data.Integer("club_id", "ID"), data.String("role", "Role of Member")]
+    name = "Membership"
 
     def __str__(self):
         return "Membership"
 
 class Participation(Record):
     fields = [data.Integer("student_id", "ID"), data.Integer("activity_id", "ID"), data.Category("category","Category"), data.String("role", "Role of Member"), data.OptionalString("award", "Award (Optional)"), data.OptionalInteger("hours", "Hours (Optional)")]
+    name = "Participation"
 
     def __str__(self):
         return "Participation"
