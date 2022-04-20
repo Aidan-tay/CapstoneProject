@@ -64,7 +64,34 @@ def view_select():
 
 @app.route("/view/result", methods=['GET'])
 def view_result():
-    return render_template("view_result.html", field_attributes = storage.find_one(request.form["entity_type"], name = request.form["name"]))
+    entity_type = request.form["entity_type"]
+    field_attributes = storage.find_one(entity_type, name = request.form["name"])
+
+    if entity_type == "Student":
+        field_attributes["class"] = storage.find_one("Class", id=field_attributes.pop("class_id"))
+        
+        subject_list = storage.find_some("Student-Subject", student_id = field_attributes.pop("id"))
+        subject_list = [storage.find_one("Subject", id=x["subject_id"])["name"] for x in subject_list]
+        field_attributes["subjects"] = subject_list
+
+    elif entity_type == "Class":
+        student_list = storage.find_some("Student", class_id = field_attributes.pop("id"))
+        student_list = [x["name"] for x in student_list]
+        field_attributes["students"] = student_list
+
+    elif entity_type == "Club":
+        student_list = storage.find_some("Membership", student_id = field_attributes.pop("id"))
+        student_list = [storage.find_one("Student", id=x["student_id"])["name"] for x in student_list]
+        field_attributes["students"] = student_list
+
+    elif entity_type == "Activity":
+        student_list = storage.find_some("Participation", student_id = field_attributes.pop("id"))
+        student_list = [storage.find_one("Student", id=x["student_id"])["name"] for x in student_list]
+        field_attributes["students"] = student_list
+        
+
+        
+    return render_template("view_result.html", field_attributes = field_attributes)
 
 @app.route("/edit/select/type", methods=['POST', 'GET'])
 def edit_select_type():
