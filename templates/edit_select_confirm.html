@@ -3,6 +3,16 @@
         <title>Edit_select_confirm</title>
     </head>
     <body>
-        
+        <table>
+            {% for key, value in field_attributes %}
+            <tr>
+                <th>{{ key }}</th>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <a href="/edit?type={{ entity_type }}&id={{ id }}"> Confirm </a>
+        <a href="/edit/select/name?type={{ entity_type }}"> Back </a>
     </body>
 </html>
