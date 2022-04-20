@@ -59,14 +59,14 @@ def view():
 
 @app.route("/view/select", methods=['POST', 'GET'])
 def view_select():
-    entity_type = request.form["entity_type"]
+    entity_type = request.args["type"]
     entity_list = storage.find_all(entity_type, field="name")
     
     return render_template("view_select.html", entity_type = entity_type, entity_list = entity_list)
 
 @app.route("/view/result", methods=['GET'])
 def view_result():
-    entity_type = request.form["entity_type"]
+    entity_type = request.args["type"]
     field_attributes = storage.find_one(entity_type, name = request.form["name"])
 
     if entity_type == "Student":
@@ -90,8 +90,6 @@ def view_result():
         student_list = storage.find_some("Participation", student_id = field_attributes.pop("id"))
         student_list = [storage.find_one("Student", id=x["student_id"])["name"] for x in student_list]
         field_attributes["students"] = student_list
-        
-
         
     return render_template("view_result.html", field_attributes = field_attributes)
 

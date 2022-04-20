@@ -4,5 +4,16 @@
     </head>
     <body>
         
+        <form action="/view/result" method="post">
+            <label> Please select a {{ entity_type }}: </label>
+
+            <select name="name">
+                {% for entity_name in entity_list %}
+                <option value="{{ entity_name }}"> {{ entity_name }} </option>
+                {% endfor %}
+            </select>
+            
+        </form>
+        
     </body>
 </html>
