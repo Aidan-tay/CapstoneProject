@@ -21,26 +21,27 @@ def add():
 
 @app.route("/add/create", methods=['POST', 'GET'])
 def add_create():
+    entity_type = request.args["type"]
     form = dict(request.form)
-    
-    entity_type = form["entity_type"]
+
     field_labels = models[entity_type].fields_as_dict()
     field_inputs = {}
     for key in field_labels.keys():
         if form.get(key) != None:
            field_inputs[key] = form.get(key)
-        
-    return render_template("add_create.html", entity_type=entity_type, field_labels = field_labels, field_inputs = field_inputs)
+            
+    return render_template("add_create.html", entity_type = entity_type, field_labels = field_labels, field_inputs = field_inputs)
 
 @app.route("/add/result", methods=['POST', 'GET'])
 def add_result():
+    entity_type = request.args["type"]
     form = dict(request.form)
-    
-    entity_type = form.pop("entity_type")
+
+    id = None
     error = None
     field_inputs = form
     form["id"] = storage.find_lastest_id(entity_type) + 1
-    
+
     try:
         record = models[entity_type].from_dict(form)
     except Exception as e:
@@ -58,14 +59,14 @@ def view():
 
 @app.route("/view/select", methods=['POST', 'GET'])
 def view_select():
-    entity_type = request.form["entity_type"]
+    entity_type = request.args["type"]
     entity_list = storage.find_all(entity_type, field="name")
     
     return render_template("view_select.html", entity_type = entity_type, entity_list = entity_list)
 
 @app.route("/view/result", methods=['GET'])
 def view_result():
-    entity_type = request.form["entity_type"]
+    entity_type = request.args["type"]
     field_attributes = storage.find_one(entity_type, name = request.form["name"])
 
     if entity_type == "Student":
@@ -90,8 +91,6 @@ def view_result():
         student_list = [storage.find_one("Student", id=x["student_id"])["name"] for x in student_list]
         field_attributes["students"] = student_list
         
-
-        
     return render_template("view_result.html", field_attributes = field_attributes)
 
 @app.route("/edit/select/type", methods=['POST', 'GET'])
@@ -100,14 +99,14 @@ def edit_select_type():
 
 @app.route("/edit/select/name", methods=['POST', 'GET'])
 def edit_select_name():
-    entity_type = request.form["entity_type"]
+    entity_type = request.args["type"]
     entity_list = storage.find_all(entity_type, field="name")
 
     return render_template("edit_select_name.html", entity_type=entity_type, entity_list=entity_list)
 
 @app.route("/edit/select/confirm", methods=['POST', 'GET'])
 def edit_select_confirm():
-    entity_type = request.form["entity_type"]
+    entity_type = request.args["type"]
     field_attributes = storage.find_one(entity_type, name = request.form["name"])
     id = field_attributes.pop("id")
 

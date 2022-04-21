@@ -4,9 +4,8 @@
     </head>
     <body>
         {% for x in entity_list %}
-<       <form action="/add/create" method="POST">
-        <input type="hidden" name="entity_type" value="{{ x }}">
-        <input type='submit' value="{{ x }}">
+        <a href="/add/create?type={{ x }}"> Create a {{ x }} </a>
+        <br>
         {% endfor %}
        
     </body>

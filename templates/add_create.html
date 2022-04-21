@@ -3,13 +3,20 @@
         <title>Add_create</title>
     </head>
     <body>
-        
+    <form method="POST" action="/add/result?type={{ entity_type }}">
+    {% for name, label in field_labels.items() %}
+        <label>{{ label }}:</label>
+        {% if field_inputs.get(name) != None %}
+        <input type="text" name="{{ name }}" value="{{ field_inputs.get(name) }}">
+        {% else %}
+        <input type="text" name="{{ name }}" value="">
+        {% endif %}
+        <br>
+    {% endfor %}
+    <input type="submit" value="Submit">
+    </form>
+    </body>
 </html>
 
-<!-- based on field_labels, use for loop to generate multiple text fields
-not sure what to do with entity type
+ 
 
-{% for label in field_labels %}
-        <p>{{label}}</p>
-        {% endfor %}
-    </body>-->
