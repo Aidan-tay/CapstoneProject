@@ -40,10 +40,11 @@ def add_result():
     id = None
     error = None
     field_inputs = form
-    if storage.find_lastest_id(entity_type) == None:
+
+    if storage.find_latest_id(entity_type) == None:
         form["id"] = 0
     else:
-        form["id"] = storage.find_lastest_id(entity_type) + 1
+        form["id"] = storage.find_latest_id(entity_type) + 1
 
     try:
         record = models[entity_type].from_dict(form)
@@ -225,6 +226,6 @@ def edit_result():
 
 
 
-########FRONTPRAWN RANDOM SHIT JS IGNORE IF I FORGOT DELETE BEFORE MERGE######    
+########FRONTPRAWN RANDOM SHIT JS IGNORE IF I FORGOT DELETE BEFORE MERGE######
 
 app.run("0.0.0.0")
