@@ -4,5 +4,10 @@
     </head>
     <body>
         
+    {% for entity in entity_names %}
+        <a href="/view/select?type={{ entity }}"> View {{ entity }} data </a>
+        <br>
+    {% endfor %}
+        
     </body>
 </html>

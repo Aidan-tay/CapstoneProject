@@ -3,6 +3,24 @@
         <title>Add_result</title>
     </head>
     <body>
+        {% if error == None %}
         
+        <p> Sucess! </p>
+        <br>
+        <a href = "/edit?type={{ entity_type }}&id={{ id }}"> Edit Students in your {{ entity_type }}</a>
+        
+        {% else %}
+        <p> {{ error }}</p>
+        
+        <form action="/add/create?type={{ entity_type }}" method="POST">
+          
+        {% for key, value in field_inputs.items() %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endfor %}
+            
+        <input type="submit" value="Back">
+        </form>
+        
+        {% endif %}
     </body>
 </html>

@@ -3,6 +3,9 @@
         <title>Edit_select_type</title>
     </head>
     <body>
-        
+        {% for entity in entity_names %}
+        <a href="/edit/select/name?type={{ entity }}"> Edit {{ entity }}'s student data </a>
+        <br>
+    {% endfor %}
     </body>
 </html>

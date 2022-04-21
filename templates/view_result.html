@@ -1,8 +1,21 @@
 <html>
     <head>
-        <title>View_result></title>
+        <title>View_result</title>
     </head>
     <body>
-        
+        <table>
+            {% for key, value in field_attributes %}
+            <tr>
+                <th> {{ key }}</th>
+                <td>
+                {% if isinstance(value, list) %}
+                    {{ " ,".join(value) }}
+                {% else %}
+                    {{ value }}
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
     </body>
 </html>
