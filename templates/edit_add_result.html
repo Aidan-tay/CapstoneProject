@@ -3,6 +3,20 @@
         <title>Edit_add_result</title>
     </head>
     <body>
+        {% if error == None %}
+
+            <p>Success</p>
+            <br>
+            <a href="/edit?type={{entity_type}}&id={{id}}">Edit Students in your {{entity_type}}</a>
+
+        {% else %}
+        <p>{{error}}</p>
+        <form action="/edit/add?type={{entity_type}}&id={{id}}" method="POST">
+        <input type="submit" value="Go Back">
+        </form>
+
+        
+        {% endif %}
         
     </body>
 </html>
