@@ -77,7 +77,7 @@ def delete(table_name, **kwargs):
         query += f"{key} = ? AND "
 
     query = query.rstrip(" AND ") + ";"
-    cur.execute(query, tuple(kwargs.values())
+    cur.execute(query, tuple(kwargs.values()))
     conn.commit()
     conn.close()
 
@@ -171,7 +171,7 @@ def find_some(table_name, **kwargs):
     query = query.rstrip(" AND ") + ";"
 
     try:
-        cur.execute(query, tuple(kwargs.values())
+        cur.execute(query, tuple(kwargs.values()))
                 
     except sqlite3.OperationalError:   # record not found
         return RecordNotFound
