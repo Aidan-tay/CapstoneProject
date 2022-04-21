@@ -164,7 +164,7 @@ def find_some(table_name, **kwargs):
     cur = conn.cursor()
     output = []
 
-    query = f"SELECT * FROM {table_name} WHERE "
+    query = f'SELECT * FROM "{table_name}" WHERE '
     for key in kwargs.keys():
         query += f"{key} = ? AND "
 

@@ -1,7 +1,7 @@
 import storage
 
 def view_student(field_attributes):
-    field_attributes["class"] = storage.find_one("Class", id=field_attributes.pop("class_id"))
+    field_attributes["class"] = storage.find_one("Class", id=field_attributes.pop("class_id"))["name"]
 
     subject_list = storage.find_some("Student-Subject", student_id = field_attributes.pop("id"))
     subject_list = [storage.find_one("Subject", id=x["subject_id"])["name"] for x in subject_list]
