@@ -203,6 +203,7 @@ def edit_result():
     form = dict(request.form)
     name = form.pop("name")
     action = form.pop("action")
+    field_inputs = form
     student_id = storage.find_one("Student", name=name)["id"]
 
     error = None
@@ -220,8 +221,8 @@ def edit_result():
 
     elif action == "Delete":
         storage.delete(relationships[entity_type].name, **{"student_id":student_id, f"{entity_type.lower()}_id":id})
-    
-    return render_template("edit_result.html", entity_type=entity_type, id=id, name=name)
+
+    return render_template("edit_result.html", entity_type=entity_type, id=id, name=name, field_inputs=field_inputs, error=error)
 
 
 
