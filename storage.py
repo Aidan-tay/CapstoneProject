@@ -130,7 +130,6 @@ def find_one(table_name, **kwargs):
     Returns RecordNotFound if no such record is found. 
     """
     
-    # to fix: does not work for name field only
     conn = sqlite3.connect("project_uwu.db")
     cur = conn.cursor()
 
@@ -166,13 +165,13 @@ def find_some(table_name, **kwargs):
     output = []
 
     query = f"SELECT * FROM {table_name} WHERE "
-    for key, value in kwargs.items():
-        query += f"{key} = {value} AND "
+    for key in kwargs.keys():
+        query += f"{key} = ? AND "
 
     query = query.rstrip(" AND ") + ";"
 
     try:
-        cur.execute(query)
+        cur.execute(query, tuple(kwargs.values())
                 
     except sqlite3.OperationalError:   # record not found
         return RecordNotFound
