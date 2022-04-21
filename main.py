@@ -40,7 +40,10 @@ def add_result():
     id = None
     error = None
     field_inputs = form
-    form["id"] = storage.find_lastest_id(entity_type) + 1
+    if storage.find_lastest_id(entity_type) == None:
+        form["id"] = 0
+    else:
+        form["id"] = storage.find_lastest_id(entity_type) + 1
 
     try:
         record = models[entity_type].from_dict(form)
