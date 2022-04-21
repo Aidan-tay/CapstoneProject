@@ -4,13 +4,14 @@
     </head>
     <body>
         <form action="/edit/relationship?type={{entity_type}}&id={{id}}" method="POST">
-            <label> Please select a student: </label>
+            <label> Please select a student to edit: </label>
 
             <select name="name">
                 {% for entity_name in student_list %}
                 <option value="{{ entity_name }}"> {{ entity_name }} </option>
                 {% endfor %}
             </select>
+            <input type="submit" value="Confirm">
     </body>
 </html>
 
