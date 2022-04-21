@@ -3,6 +3,25 @@
         <title>Edit_relationship</title>
     </head>
     <body>
-        
+        <p>Name: {{name}}</p>
+         <form method="POST" action="/edit/result?type={{entity_type}}&id={{id}}">
+    {% for field, label in field_labels.items() %}
+        <label>{{ label }}:</label>
+        {% if field_inputs.get(field) != None %}
+        <input type="text" field="{{ field }}" value="{{ field_inputs.get(field) }}">
+        {% else %}
+             
+        <input type="text" field="{{ field }}" value="">
+        {% endif %}
+        <br>
+    {% endfor %}
+    <input type="hidden" name="name" value="{{ name }}">
+             <select name="action">
+             <choice value="Edit">Edit</choice>
+             <choice value="Delete">Delete</choice>
+             </select>
+    <input type="submit" value="Submit">
+             
+    </form>
     </body>
 </html>

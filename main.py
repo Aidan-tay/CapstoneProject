@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import model
 import storage
 
-app = Flask(__name__)
+app = Flask(__name__) 
 
 models = {model.Club.name: model.Club, model.Activity.name: model.Activity}
 relationships = {model.Club.name: model.Membership, model.Activity.name: model.Participation}
@@ -68,9 +68,9 @@ def view_select():
     
     return render_template("view_select.html", entity_type = entity_type, entity_list = entity_list)
 
-@app.route("/view/result", methods=['GET'])
+@app.route("/view/result", methods=['GET', 'POST'])
 def view_result():
-    entity_type = request.args["type"]
+    entity_type = request.form["entity_type"]
     field_attributes = storage.find_one(entity_type, name = request.form["name"])
 
     if entity_type == "Student":
@@ -95,7 +95,7 @@ def view_result():
         student_list = [storage.find_one("Student", id=x["student_id"])["name"] for x in student_list]
         field_attributes["students"] = student_list
         
-    return render_template("view_result.html", field_attributes = field_attributes)
+    return render_template("view_result.html", field_attributes = field_attributes, isinstance = isinstance, list = list)
 
 @app.route("/edit/select/type", methods=['POST', 'GET'])
 def edit_select_type():
@@ -114,7 +114,7 @@ def edit_select_confirm():
     field_attributes = storage.find_one(entity_type, name = request.form["name"])
     id = field_attributes.pop("id")
 
-    return render_template("edit_select_name.html", entity_type=entity_type, field_attributes=field_attributes, id=id)
+    return render_template("edit_select_confirm.html", entity_type=entity_type, field_attributes=field_attributes, id=id)
 
 @app.route("/edit", methods=['POST', 'GET'])
 def edit():
@@ -188,7 +188,7 @@ def edit_relationship():
     field_labels = relationships[entity_type].fields_as_dict()
     
     student_id = storage.find_one("Student", name=name)["id"]
-    data = storage.findone(relationships[entity_type].name, **{"student_id":student_id, f"{entity_type.lower()}_id":id})
+    data = storage.find_one(relationships[entity_type].name, **{"student_id":student_id, f"{entity_type.lower()}_id":id})
 
     field_inputs = {}
     for key in field_labels.keys():

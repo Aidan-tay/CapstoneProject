@@ -3,6 +3,30 @@
         <title>Edit_add</title>
     </head>
     <body>
+        <form action="/edit/add/result?type={{entity_type}}&id={{id}}" method="POST">
+            <label> Please select a student: </label>
+
+            <select name="name">
+                {% for entity_name in student_list %}
+                <option value="{{ entity_name }}"> {{ entity_name }} </option>
+                {% endfor %}
+            </select>
+
+                {% for name, label in field_labels.items() %}
+                    <label>{{ label }}:</label>
+            
+                    {% if field_inputs.get(name) != None %}
+                    <input type="text" name="{{ name }}" value="{{ field_inputs.get(name) }}">
         
+                    {% else %}
+                    <input type="text" name="{{ name }}" value="">
+            
+                    {% endif %}
+                    <br>
+                {% endfor %}
+            
+            <input type="submit" value="Confirm">
+        </form>
     </body>
 </html>
+
