@@ -3,13 +3,14 @@
         <title>View_result</title>
     </head>
     <body>
+        <h3> Infomation about {{ field_attributes["name"] }}:</h3>
         <table>
             {% for key, value in field_attributes.items() %}
             <tr>
                 <th> {{ key }}</th>
                 <td>
                 {% if isinstance(value, list) %}
-                    {{ " ,".join(value) }}
+                    {{ ", ".join(value) }}
                 {% else %}
                     {{ value }}
                 {% endif %}
