@@ -18,11 +18,14 @@ class String(Field):
 
     @classmethod
     def validate(cls, arg: str): 
+        '''
+        Checks for an empty string or a string that is too long
+        '''
         if type(arg) != str:
             raise TypeError(f'{arg} is not string data type')
         elif arg == "":
             raise InvalidDataError("A field can not be empty")
-        elif len(arg) > 200:
+        elif len(arg) > 500:
             raise InvalidDataError("A field is too long.")
 
         return True
@@ -32,9 +35,12 @@ class OptionalString(Field):
         super().__init__(name, label)
 
     def validate(cls, arg: str): 
+        '''
+        Checks for string data type and length of string
+        '''
         if type(arg) != str:
             raise TypeError(f'{arg} is not string data type')
-        elif len(arg) > 200:
+        elif len(arg) > 500:
             raise InvalidDataError("A field is too long.")
 
         return True
@@ -46,6 +52,9 @@ class Integer(Field):
 
     @classmethod
     def validate(cls, arg: str): 
+        '''
+        Checks if the arg is numeric and not empty
+        '''
         if arg == "":
             raise InvalidDataError("A field can not be empty")
             
@@ -59,7 +68,10 @@ class OptionalInteger(Field):
         super().__init__(name, label)
 
     @classmethod
-    def validate(cls, arg: str): 
+    def validate(cls, arg: str):
+        '''
+        Checks if the arg is numeric
+        '''
         if arg == "":
             return True
             
@@ -74,6 +86,9 @@ class Age(Field):
 
     @classmethod
     def validate(cls, arg: int): 
+        '''
+        Checks for valid age for a JC student
+        '''
         if arg == "":
             raise InvalidDataError("A field can not be empty")
             
@@ -92,6 +107,9 @@ class Year(Field):
         
     @classmethod
     def validate(cls, arg: int):
+        '''
+        Checks for a valid year
+        '''
         if arg == "":
             raise InvalidDataError("A field can not be empty")
             
@@ -109,6 +127,9 @@ class Date(Field):
         
     @classmethod
     def validate(cls, date_text: str):
+        '''
+        Checks for a valid date in YYYYMMDD format
+        '''
         if date_text == "":
             raise InvalidDataError("A field can not be empty")
             
@@ -125,6 +146,9 @@ class OptionalDate(Field):
         
     @classmethod
     def validate(cls, date_text: str):
+        '''
+        Checks for a valid date in YYYYMMDD format or a empty string
+        '''
         if date_text == "":
             return True
             
@@ -141,7 +165,10 @@ class Category(Field):
         
     @classmethod
     def validate(cls, arg):
+        '''
+        Checks for valid category
+        '''
         if arg not in ["Achievement", "Enrichment", "Leadership", "Service"]:
-            raise InvalidDataError('Category not found')
+            raise InvalidDataError('Category must be Achievement, Enrichment, Leadership or Service')
             
         
