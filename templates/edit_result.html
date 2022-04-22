@@ -4,8 +4,8 @@
     </head>
     <body>
         {% if error == None %}
-        <h3>Success!</h3>
-        <a href="/edit?type={{entity_type}}&id={{id}}">Back to Edit</a>
+        <h1>Success!</h1>
+        <a href="/edit?type={{entity_type}}&id={{id}}">Back to edit menu</a>
         {% else %}
         <p>{{error}}</p>
         <form action="/edit/relationship?type={{entity_type}}&id={{id}}" method="POST">
