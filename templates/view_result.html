@@ -3,16 +3,22 @@
         <title>CCA Manager</title>
     </head>
     <body>
-        <h3> Infomation about {{ field_attributes["name"] }}:</h3>
+        <h3> Infomation about {{ field_attributes["Name"] }}:</h3>
         <table>
             {% for key, value in field_attributes.items() %}
             <tr>
                 <th> {{ key }}</th>
                 <td>
+                {% if value == [] or value == "" %}
+                    None
+                {% else %}
+                    
                 {% if isinstance(value, list) %}
                     {{ ", ".join(value) }}
                 {% else %}
                     {{ value }}
+                {% endif %}
+                    
                 {% endif %}
                 </td>
             </tr>

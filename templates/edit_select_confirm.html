@@ -10,10 +10,16 @@
             <tr>
                 <th>{{ key }}</th>
                 <td>
+                {% if value == [] or value == "" %}
+                    None
+                {% else %}
+                    
                 {% if isinstance(value, list) %}
                     {{ ", ".join(value) }}
                 {% else %}
                     {{ value }}
+                {% endif %}
+                    
                 {% endif %}
                 </td>
             </tr>
