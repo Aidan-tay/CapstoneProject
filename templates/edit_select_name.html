@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Edit_select_name</title>
+        <title>CCA Manager</title>
     </head>
     <body>
         <form action="/edit/select/confirm?type={{ entity_type }}" method="post">
@@ -11,7 +11,7 @@
                 <option value="{{ entity_name }}"> {{ entity_name }} </option>
                 {% endfor %}
             </select>
-            
+            <input type="submit" value="Confirm">
         </form>
     </body>
 </html>

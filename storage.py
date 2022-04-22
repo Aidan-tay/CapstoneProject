@@ -68,7 +68,7 @@ def delete(table_name, **kwargs):
     Deletes a record in the table that has attributes **kwargs. 
     """
     
-    conn = sqlite3.connect("project uwu.db")
+    conn = sqlite3.connect("project_uwu.db")
     cur = conn.cursor()
 
     query = f"DELETE FROM {table_name} WHERE "
@@ -164,7 +164,7 @@ def find_some(table_name, **kwargs):
     cur = conn.cursor()
     output = []
 
-    query = f"SELECT * FROM {table_name} WHERE "
+    query = f'SELECT * FROM "{table_name}" WHERE '
     for key in kwargs.keys():
         query += f"{key} = ? AND "
 

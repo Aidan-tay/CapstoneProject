@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request
 import model
 import storage
+import helper
 
-app = Flask(__name__)
+app = Flask(__name__) 
 
 models = {model.Club.name: model.Club, model.Activity.name: model.Activity}
 relationships = {model.Club.name: model.Membership, model.Activity.name: model.Participation}
@@ -48,6 +49,8 @@ def add_result():
 
     try:
         record = models[entity_type].from_dict(form)
+        if record.get("name") in storage.find_all(entity_type, field="name"):
+            raise NameError(f"{record.get('name')} already exists.")
     except Exception as e:
         error = e
 
@@ -68,34 +71,24 @@ def view_select():
     
     return render_template("view_select.html", entity_type = entity_type, entity_list = entity_list)
 
-@app.route("/view/result", methods=['GET'])
+@app.route("/view/result", methods=['GET', 'POST'])
 def view_result():
-    entity_type = request.args["type"]
+    entity_type = request.form["entity_type"]
     field_attributes = storage.find_one(entity_type, name = request.form["name"])
 
     if entity_type == "Student":
-        field_attributes["class"] = storage.find_one("Class", id=field_attributes.pop("class_id"))
-        
-        subject_list = storage.find_some("Student-Subject", student_id = field_attributes.pop("id"))
-        subject_list = [storage.find_one("Subject", id=x["subject_id"])["name"] for x in subject_list]
-        field_attributes["subjects"] = subject_list
+        helper.view_student(field_attributes)
 
     elif entity_type == "Class":
-        student_list = storage.find_some("Student", class_id = field_attributes.pop("id"))
-        student_list = [x["name"] for x in student_list]
-        field_attributes["students"] = student_list
+        helper.view_class(field_attributes)
 
     elif entity_type == "Club":
-        student_list = storage.find_some("Membership", student_id = field_attributes.pop("id"))
-        student_list = [storage.find_one("Student", id=x["student_id"])["name"] for x in student_list]
-        field_attributes["students"] = student_list
+        helper.view_club(field_attributes)
 
     elif entity_type == "Activity":
-        student_list = storage.find_some("Participation", student_id = field_attributes.pop("id"))
-        student_list = [storage.find_one("Student", id=x["student_id"])["name"] for x in student_list]
-        field_attributes["students"] = student_list
-        
-    return render_template("view_result.html", field_attributes = field_attributes)
+        helper.view_activity(field_attributes)
+
+    return render_template("view_result.html", field_attributes = field_attributes, isinstance = isinstance, list = list)
 
 @app.route("/edit/select/type", methods=['POST', 'GET'])
 def edit_select_type():
@@ -112,9 +105,15 @@ def edit_select_name():
 def edit_select_confirm():
     entity_type = request.args["type"]
     field_attributes = storage.find_one(entity_type, name = request.form["name"])
-    id = field_attributes.pop("id")
+    id = field_attributes["id"]
 
-    return render_template("edit_select_name.html", entity_type=entity_type, field_attributes=field_attributes, id=id)
+    if entity_type == "Club":
+        helper.view_club(field_attributes)
+
+    elif entity_type == "Activity":
+        helper.view_activity(field_attributes)
+
+    return render_template("edit_select_confirm.html", entity_type=entity_type, field_attributes=field_attributes, id=id, isinstance=isinstance, list=list)
 
 @app.route("/edit", methods=['POST', 'GET'])
 def edit():
@@ -188,7 +187,7 @@ def edit_relationship():
     field_labels = relationships[entity_type].fields_as_dict()
     
     student_id = storage.find_one("Student", name=name)["id"]
-    data = storage.findone(relationships[entity_type].name, **{"student_id":student_id, f"{entity_type.lower()}_id":id})
+    data = storage.find_one(relationships[entity_type].name, **{"student_id":student_id, f"{entity_type.lower()}_id":id})
 
     field_inputs = {}
     for key in field_labels.keys():
@@ -203,6 +202,7 @@ def edit_result():
     form = dict(request.form)
     name = form.pop("name")
     action = form.pop("action")
+    field_inputs = form
     student_id = storage.find_one("Student", name=name)["id"]
 
     error = None
@@ -220,8 +220,8 @@ def edit_result():
 
     elif action == "Delete":
         storage.delete(relationships[entity_type].name, **{"student_id":student_id, f"{entity_type.lower()}_id":id})
-    
-    return render_template("edit_result.html", entity_type=entity_type, id=id, name=name)
+
+    return render_template("edit_result.html", entity_type=entity_type, id=id, name=name, field_inputs=field_inputs, error=error)
 
 
 

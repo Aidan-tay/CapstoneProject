@@ -1,10 +1,12 @@
 <html>
     <head>
-        <title>Edit_select_type</title>
+        <title>CCA Manager</title>
     </head>
+    <h3> Please select what you would like to edit:</h3>
+    
     <body>
         {% for entity in entity_names %}
-        <a href="/edit/select/name?type={{ entity }}"> Edit {{ entity }}'s student data </a>
+        <a href="/edit/select/name?type={{ entity }}"> {{ entity }} </a>
         <br>
     {% endfor %}
     </body>

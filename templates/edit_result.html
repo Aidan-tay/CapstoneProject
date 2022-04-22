@@ -1,8 +1,22 @@
 <html>
     <head>
-        <title>Edit_result</title>
+        <title>CCA Manager</title>
     </head>
     <body>
-        
+        {% if error == None %}
+        <h3>Success!</h3>
+        <a href="/edit?type={{entity_type}}&id={{id}}">Back to Edit</a>
+        {% else %}
+        <p>{{error}}</p>
+        <form action="/edit/relationship?type={{entity_type}}&id={{id}}" method="POST">
+
+        {% for key, value in field_inputs.items() %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endfor %}
+        <input type="hidden" name="name" value="{{ name }}">
+            
+        <input type="submit" value="Back">
+        </form>
+        {% endif %}
     </body>
 </html>

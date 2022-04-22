@@ -1,10 +1,12 @@
 <html>
     <head>
-        <title>Add</title>
+        <title>CCA Manager</title>
     </head>
     <body>
+        <h3> Please select what you would like to add:</h3>
+        
         {% for x in entity_list %}
-        <a href="/add/create?type={{ x }}"> Create a {{ x }} </a>
+        <a href="/add/create?type={{ x }}"> {{ x }} </a>
         <br>
         {% endfor %}
        

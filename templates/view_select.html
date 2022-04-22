@@ -1,10 +1,10 @@
 <html>
     <head>
-        <title>View_select</title>
+        <title>CCA Manager</title>
     </head>
     <body>
         
-        <form action="/view/result" method="post">
+        <form action="/view/result" method="POST">
             <label> Please select a {{ entity_type }}: </label>
 
             <select name="name">
@@ -12,7 +12,8 @@
                 <option value="{{ entity_name }}"> {{ entity_name }} </option>
                 {% endfor %}
             </select>
-            
+            <input type="hidden" name="entity_type" value="{{entity_type}}">
+            <input type="submit" value="Confirm">
         </form>
         
     </body>

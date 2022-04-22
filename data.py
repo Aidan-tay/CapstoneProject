@@ -22,6 +22,8 @@ class String(Field):
             raise TypeError(f'{arg} is not string data type')
         elif arg == "":
             raise InvalidDataError("A field can not be empty")
+        elif len(arg) > 200:
+            raise InvalidDataError("A field is too long.")
 
         return True
 
@@ -32,6 +34,8 @@ class OptionalString(Field):
     def validate(cls, arg: str): 
         if type(arg) != str:
             raise TypeError(f'{arg} is not string data type')
+        elif len(arg) > 200:
+            raise InvalidDataError("A field is too long.")
 
         return True
 

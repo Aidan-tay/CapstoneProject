@@ -1,8 +1,10 @@
 <html>
     <head>
-        <title>Add_create</title>
+        <title>CCA Manager</title>
     </head>
     <body>
+    <h3> Please enter the required infomation about your {{ entity_type.lower() }}:</h3>
+        
     <form method="POST" action="/add/result?type={{ entity_type }}">
     {% for name, label in field_labels.items() %}
         <label>{{ label }}:</label>

@@ -1,11 +1,13 @@
 <html>
     <head>
-        <title>View</title>
+        <title>CCA Manager</title>
     </head>
     <body>
-        
+
+    <h3> Please select what you would like to view:</h3>
+    
     {% for entity in entity_names %}
-        <a href="/view/select?type={{ entity }}"> View {{ entity }} data </a>
+        <a href="/view/select?type={{ entity }}"> {{ entity }} </a>
         <br>
     {% endfor %}
         
