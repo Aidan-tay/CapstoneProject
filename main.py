@@ -158,9 +158,15 @@ def edit_add():
     # get all student names
     student_list = storage.find_all("Student", field="name")
 
+    # add default values
+    field_inputs = {}
+    if entity_type == "Club":
+        field_inputs["role"] = "Member"
+    elif entity_type == "Activity":
+        field_inputs["role"] = "Participant"
+    
     # get user inputs from request.form
     form = dict(request.form)
-    field_inputs = {}
     for key in field_labels.keys():
         if form.get(key) != None:
            field_inputs[key] = form.get(key)
