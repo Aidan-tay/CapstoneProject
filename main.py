@@ -285,4 +285,27 @@ def edit_result():
 
     return render_template("edit_result.html", entity_type=entity_type, id=id, name=name, field_inputs=field_inputs, error=error)
 
+@app.route("/delete", methods=['POST', 'GET'])
+def delete():
+    return render_template("delete.html", entity_list=models.keys())
+
+@app.route("/delete/select", methods=['POST', 'GET'])
+def delete_select():
+    # get the entity type and find all instances of it in the database
+    entity_type = request.args["type"]
+    entity_list = storage.find_all(entity_type, field="name")
+    
+    return render_template("delete_select.html", entity_type=entity_type, entity_list=entity_list)
+
+@app.route("/delete/result", methods=['POST', 'GET'])
+def delete_result():
+    # get the entity type and mame
+    name = request.form["name"]
+    entity_type = request.form["entity_type"]
+
+    #delete the entity
+    storage.delete(entity_type, name=name)
+
+    return render_template("delete_result.html")
+
 app.run("0.0.0.0")
