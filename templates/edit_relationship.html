@@ -1,11 +1,9 @@
 <html>
     <head>
-        <title>Edit_relationship</title>
+        <title>CCA Manager</title>
     </head>
     <body>
         <p>Name: {{name}}</p>
-        <br>
-        <br>
         
     <form method="POST" action="/edit/result?type={{entity_type}}&id={{id}}">
     {% for field, label in field_labels.items() %}
@@ -19,7 +17,7 @@
         <br>
     {% endfor %}
 
-    <input type="radio" id="Edit" name="action" value="Edit">
+    <input type="radio" id="Edit" name="action" value="Edit" checked="checked">
     <label for="Edit"> Edit </label>
     <input type="radio" id="Delete" name="action" value="Delete">
     <label for="Delete"> Delete </label>
@@ -29,5 +27,8 @@
     <input type="submit" value="Submit">
              
     </form>
+
+    <br>
+    <a href="/edit?type={{entity_type}}&id={{id}}">Back to edit menu</a>
     </body>
 </html>

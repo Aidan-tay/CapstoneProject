@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Edit_add</title>
+        <title>CCA Manager</title>
     </head>
     <body>
         <form action="/edit/add/result?type={{entity_type}}&id={{id}}" method="POST">
@@ -11,6 +11,7 @@
                 <option value="{{ entity_name }}"> {{ entity_name }} </option>
                 {% endfor %}
             </select>
+            <br>
 
                 {% for name, label in field_labels.items() %}
                     <label>{{ label }}:</label>
@@ -27,6 +28,8 @@
             
             <input type="submit" value="Confirm">
         </form>
+        <br>
+        <a href="/edit?type={{entity_type}}&id={{id}}">Back to edit menu</a>
     </body>
 </html>
 

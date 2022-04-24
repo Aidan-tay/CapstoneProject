@@ -4,6 +4,9 @@ class Record:
     fields = None
     name = None
     def __init__(self, **kwargs):
+        '''
+        Validates and creates an instance of the object with fields specified
+        '''
         for field in self.fields:
             value = kwargs[field.name]
             field.validate(value)
@@ -11,9 +14,15 @@ class Record:
 
     @classmethod
     def from_dict(cls, dict):
+        '''
+        Converts a dictionary to a instance of the class
+        '''
         return cls(**dict)
 
     def as_dict(self):
+        '''
+        Convert class to a dictionary
+        '''
         fields_dict = {}
         for field in self.fields:
             fields_dict[field.name] = getattr(self, field.name)
@@ -21,6 +30,11 @@ class Record:
 
     @classmethod
     def fields_as_dict(cls):
+        '''
+        Convert the fields to a dictionary, excluding any id attributes.
+        key: field variable name
+        value: field label
+        '''
         fields_dict = {}
         for field in cls.fields:
             if field.label != "ID":
@@ -28,6 +42,9 @@ class Record:
         return fields_dict
 
     def get(self, attr):
+        '''
+        Get the value of the specified attribute
+        '''
         return getattr(self, attr)
                 
 class Club(Record):

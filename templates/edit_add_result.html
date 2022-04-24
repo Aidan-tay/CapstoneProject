@@ -1,21 +1,24 @@
 <html>
     <head>
-        <title>Edit_add_result</title>
+        <title>CCA Manager</title>
     </head>
     <body>
         {% if error == None %}
 
-            <h3>Success!</h3>
+            <h1>Success!</h1>
             <br>
-            <a href="/edit?type={{entity_type}}&id={{id}}">Edit Students in your {{entity_type}}</a>
+            <a href="/edit?type={{entity_type}}&id={{id}}">Back to edit menu</a>
 
         {% else %}
         <p>{{error}}</p>
         <form action="/edit/add?type={{entity_type}}&id={{id}}" method="POST">
+            
+        {% for key, value in field_inputs.items() %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endfor %}
+            
         <input type="submit" value="Go Back">
         </form>
-
-        <!-- finish up this part-->
         
         {% endif %}
         

@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Edit_select_confirm</title>
+        <title>CCA Manager</title>
     </head>
     <body>
         <h3> Is this correct? </h3>
@@ -10,10 +10,16 @@
             <tr>
                 <th>{{ key }}</th>
                 <td>
+                {% if value == [] or value == "" %}
+                    None
+                {% else %}
+                    
                 {% if isinstance(value, list) %}
                     {{ ", ".join(value) }}
                 {% else %}
                     {{ value }}
+                {% endif %}
+                    
                 {% endif %}
                 </td>
             </tr>
