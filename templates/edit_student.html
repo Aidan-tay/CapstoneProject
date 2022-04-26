@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        {% if student_list != [] %}
         <form action="/edit/relationship?type={{entity_type}}&id={{id}}" method="POST">
             <label> Please select a student to edit: </label>
 
@@ -13,6 +14,11 @@
                 {% endfor %}
             </select>
             <input type="submit" value="Confirm">
+        </form>
+        {% else %}
+        <h2> No students are in the {{ entity_type }} to edit. </h2>
+        {% endif %}
+        
         <br>
         <a href="/edit?type={{entity_type}}&id={{id}}">Back to edit menu</a>
     </body>
