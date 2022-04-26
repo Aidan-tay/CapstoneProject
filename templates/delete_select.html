@@ -4,7 +4,8 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        
+
+        {% if entity_list != [] %}
         <form action="/delete/result" method="POST">
             <label> Please select a {{ entity_type }}: </label>
 
@@ -16,6 +17,9 @@
             <input type="hidden" name="entity_type" value="{{entity_type}}">
             <input type="submit" value="Confirm">
         </form>
+        {% else %}
+        <h2> No {{ entity_type }} exists. </h2>
+        {% endif %}
 
         <br>
         <a href="/index"> Back to main menu </a>
