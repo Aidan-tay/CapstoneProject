@@ -1,28 +1,35 @@
 <html>
     <head>
-        <title>Edit_relationship</title>
+        <title>CCA Manager</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         <p>Name: {{name}}</p>
-         <form method="POST" action="/edit/result?type={{entity_type}}&id={{id}}">
+        
+    <form method="POST" action="/edit/result?type={{entity_type}}&id={{id}}">
     {% for field, label in field_labels.items() %}
         <label>{{ label }}:</label>
         {% if field_inputs.get(field) != None %}
-        <input type="text" field="{{ field }}" value="{{ field_inputs.get(field) }}">
+        <input type="text" name="{{ field }}" value="{{ field_inputs.get(field) }}">
         {% else %}
              
-        <input type="text" field="{{ field }}" value="">
+        <input type="text" name="{{ field }}" value="">
         {% endif %}
         <br>
     {% endfor %}
+
+    <input type="radio" id="Edit" name="action" value="Edit" checked="checked">
+    <label for="Edit"> Edit </label>
+    <input type="radio" id="Delete" name="action" value="Delete">
+    <label for="Delete"> Delete </label>
+    <br>
+    
     <input type="hidden" name="name" value="{{ name }}">
-             <select name="action">
-             <choice value="Edit">Edit</choice>
-             <choice value="Delete">Delete</choice>
-             </select>
     <input type="submit" value="Submit">
              
     </form>
+
+    <br>
+    <a href="/edit?type={{entity_type}}&id={{id}}">Back to edit menu</a>
     </body>
 </html>

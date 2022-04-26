@@ -1,19 +1,35 @@
 <html>
     <head>
-        <title>Edit_select_confirm</title>
+        <title>CCA Manager</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        <h3> Is this correct? </h3>
+        <br>
         <table>
             {% for key, value in field_attributes.items() %}
             <tr>
                 <th>{{ key }}</th>
-                <td>{{ value }}</td>
+                <td>
+                {% if value == [] or value == "" %}
+                    None
+                {% else %}
+                    
+                {% if isinstance(value, list) %}
+                    {{ ", ".join(value) }}
+                {% else %}
+                    {{ value }}
+                {% endif %}
+                    
+                {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </table>
-
-        <a href="/edit?type={{ entity_type }}&id={{ id }}"> Confirm </a>
-        <a href="/edit/select/name?type={{ entity_type }}"> Back </a>
+        
+        <br>
+        <a href="/edit?type={{ entity_type }}&id={{ id }}"> Yes </a>
+        <br>
+        <a href="/edit/select/name?type={{ entity_type }}"> No </a>
     </body>
 </html>

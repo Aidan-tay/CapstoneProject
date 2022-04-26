@@ -1,14 +1,19 @@
 <html>
     <head>
-        <title>View</title>
+
+        <title>CCA Manager</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        
+
+    <h3> Please select what you would like to view:</h3>
+    
     {% for entity in entity_names %}
-        <a href="/view/select?type={{ entity }}"> View {{ entity }} data </a>
+        <a href="/view/select?type={{ entity }}"> {{ entity }} </a>
         <br>
     {% endfor %}
-        
+
+        <br>
+        <a href="/index"> Back to main menu </a>
     </body>
 </html>

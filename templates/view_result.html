@@ -1,22 +1,32 @@
 <html>
     <head>
-        <title>View_result</title>
+        <title>CCA Manager</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        <h3> Infomation about {{ field_attributes["Name"] }}:</h3>
         <table>
             {% for key, value in field_attributes.items() %}
             <tr>
                 <th> {{ key }}</th>
                 <td>
+                {% if value == [] or value == "" %}
+                    None
+                {% else %}
+                    
                 {% if isinstance(value, list) %}
-                    {{ " ,".join(value) }}
+                    {{ ", ".join(value) }}
                 {% else %}
                     {{ value }}
+                {% endif %}
+                    
                 {% endif %}
                 </td>
             </tr>
             {% endfor %}
         </table>
+
+        <br>
+        <a href="/index"> Back to main menu </a>
     </body>
 </html>

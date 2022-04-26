@@ -1,11 +1,11 @@
 <html>
     <head>
-        <title>Edit_student</title>
+        <title>CCA Manager</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         <form action="/edit/relationship?type={{entity_type}}&id={{id}}" method="POST">
-            <label> Please select a student: </label>
+            <label> Please select a student to edit: </label>
 
             <select name="name">
                 {% for entity_name in student_list %}
@@ -13,6 +13,8 @@
                 {% endfor %}
             </select>
             <input type="submit" value="Confirm">
+        <br>
+        <a href="/edit?type={{entity_type}}&id={{id}}">Back to edit menu</a>
     </body>
 </html>
 

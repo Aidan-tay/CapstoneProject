@@ -1,9 +1,11 @@
 <html>
     <head>
-        <title>Add_create</title>
+        <title>CCA Manager</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+    <h3> Please enter the required infomation about your {{ entity_type.lower() }}:</h3>
+        
     <form method="POST" action="/add/result?type={{ entity_type }}">
     {% for name, label in field_labels.items() %}
         <label>{{ label }}:</label>
@@ -15,6 +17,10 @@
         <br>
     {% endfor %}
     <input type="submit" value="Submit">
+
+    <br>
+    <br>
+    <a href="/index"> Back to main menu </a>
     </form>
     </body>
 </html>
