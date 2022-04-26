@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Edit_student</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         <form action="/edit/relationship?type={{entity_type}}&id={{id}}" method="POST">
