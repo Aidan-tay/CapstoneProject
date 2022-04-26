@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>CCA Manager</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        
+        <form action="/delete/result" method="POST">
+            <label> Please select a {{ entity_type }}: </label>
+
+            <select name="name">
+                {% for entity_name in entity_list %}
+                <option value="{{ entity_name }}"> {{ entity_name }} </option>
+                {% endfor %}
+            </select>
+            <input type="hidden" name="entity_type" value="{{entity_type}}">
+            <input type="submit" value="Confirm">
+        </form>
+
+        <br>
+        <a href="/index"> Back to main menu </a>
+    </body>
+</html>

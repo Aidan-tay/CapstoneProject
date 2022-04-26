@@ -158,9 +158,15 @@ def edit_add():
     # get all student names
     student_list = storage.find_all("Student", field="name")
 
+    # add default values
+    field_inputs = {}
+    if entity_type == "Club":
+        field_inputs["role"] = "Member"
+    elif entity_type == "Activity":
+        field_inputs["role"] = "Participant"
+    
     # get user inputs from request.form
     form = dict(request.form)
-    field_inputs = {}
     for key in field_labels.keys():
         if form.get(key) != None:
            field_inputs[key] = form.get(key)
@@ -278,5 +284,29 @@ def edit_result():
         storage.delete(relationships[entity_type].name, **{"student_id":student_id, f"{entity_type.lower()}_id":id})
 
     return render_template("edit_result.html", entity_type=entity_type, id=id, name=name, field_inputs=field_inputs, error=error)
+
+@app.route("/delete", methods=['POST', 'GET'])
+def delete():
+    return render_template("delete.html", entity_list=models.keys())
+
+@app.route("/delete/select", methods=['POST', 'GET'])
+def delete_select():
+    # get the entity type and find all instances of it in the database
+    entity_type = request.args["type"]
+    entity_list = storage.find_all(entity_type, field="name")
+    
+    return render_template("delete_select.html", entity_type=entity_type, entity_list=entity_list)
+
+@app.route("/delete/result", methods=['POST', 'GET'])
+def delete_result():
+    # get the entity type and name
+    name = request.form["name"]
+    entity_type = request.form["entity_type"]
+
+    #delete the entity and its relationships
+    storage.delete(relationships[entity_type].name, **{f"{entity_type.lower()}_id": storage.find_one(entity_type, name=name)["id"]})
+    storage.delete(entity_type, name=name)
+
+    return render_template("delete_result.html")
 
 app.run("0.0.0.0")

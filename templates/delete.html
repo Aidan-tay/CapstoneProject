@@ -4,10 +4,10 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
-        <h3> Please select what you would like to add:</h3>
+        <h3> Please select what you would like to delete:</h3>
         
         {% for x in entity_list %}
-        <a href="/add/create?type={{ x }}"> {{ x }} </a>
+        <a href="/delete/select?type={{ x }}"> {{ x }} </a>
         <br>
         {% endfor %}
 
