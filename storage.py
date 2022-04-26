@@ -4,17 +4,34 @@ import sqlite3
 class RecordNotFound(Exception):
     pass
 
-
 class RecordAlreadyExists(Exception):
     pass
 
+class InvalidTable(Exception):
+    pass
+
+
+def validate_table(table_name):
+    """
+    Returns True if table_name is valid. 
+    Otherwise, raise InvalidTable error 
+    """
+
+    VALID_TABLE_NAMES = ["Student", "Class", "Subject", "Student-Subject", "Club", "Membership", "Activity", "Participation"]
+
+    if table_name in VALID_TABLE_NAMES:
+        return True
+    else:
+        raise InvalidTable
 
 
 def insert(table_name, record):
     """
     Inserts a new record into the table.
-    Returns RecordAlreadyExists error if record already exists. 
+    Raise RecordAlreadyExists error if record already exists. 
     """
+
+    validate_table(table_name)
     
     conn = sqlite3.connect("project_uwu.db")
     cur = conn.cursor()
@@ -39,8 +56,10 @@ def insert(table_name, record):
 def update(table_name, record, **kwargs):
     """
     Updates a record in the table that has attributes **kwargs, with a new record.
-    Returns RecordNotFound error if no matching attributes found. 
+    Raise RecordNotFound error if no matching attributes found. 
     """
+
+    validate_table(table_name)
     
     conn = sqlite3.connect("project_uwu.db")
     cur = conn.cursor()
@@ -65,8 +84,10 @@ def update(table_name, record, **kwargs):
     
 def delete(table_name, **kwargs):
     """
-    Deletes a record in the table that has attributes **kwargs. 
+    Deletes a record in the table that has attributes **kwargs.
     """
+
+    validate_table(table_name)
     
     conn = sqlite3.connect("project_uwu.db")
     cur = conn.cursor()
@@ -81,13 +102,15 @@ def delete(table_name, **kwargs):
     conn.commit()
     conn.close()
 
-
+    
 def find_all(table_name, field=None):
     """
     Returns a list of all the values in 'field' in 'table_name'. 
     If field is None, return a list of dictionaries with the whole table's contents.
-    Returns RecordNotFoundError if the record is not found in the table. 
+    Raise RecordNotFound error if the record is not found in the table. 
     """
+
+    validate_table(table_name)
     
     conn = sqlite3.connect("project_uwu.db")
     cur = conn.cursor()
@@ -127,8 +150,10 @@ def find_all(table_name, field=None):
 def find_one(table_name, **kwargs):
     """
     Returns a record with attributes matching **kwargs as a dictionary.
-    Returns RecordNotFound if no such record is found. 
+    Raise RecordNotFound error if no such record is found. 
     """
+
+    validate_table(table_name)
     
     conn = sqlite3.connect("project_uwu.db")
     cur = conn.cursor()
@@ -157,8 +182,10 @@ def find_one(table_name, **kwargs):
 def find_some(table_name, **kwargs):
     """
     Return all records with attributes matching **kwargs as a list of dictionaries.
-    Returns RecordNotFound if no such record is found.
+    Raises RecordNotFound error if no such record is found.
     """
+
+    validate_table(table_name)
     
     conn = sqlite3.connect("project_uwu.db")
     cur = conn.cursor()
@@ -190,6 +217,9 @@ def find_latest_id(table_name):
     """
     Returns the largest id in the table. 
     """
+
+    validate_table(table_name)
+    
     conn = sqlite3.connect("project_uwu.db")
     cur = conn.cursor()
 
