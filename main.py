@@ -299,11 +299,12 @@ def delete_select():
 
 @app.route("/delete/result", methods=['POST', 'GET'])
 def delete_result():
-    # get the entity type and mame
+    # get the entity type and name
     name = request.form["name"]
     entity_type = request.form["entity_type"]
 
-    #delete the entity
+    #delete the entity and its relationships
+    storage.delete(relationships[entity_type].name, **{f"{entity_type.lower()}_id": storage.find_one(entity_type, name=name)["id"]})
     storage.delete(entity_type, name=name)
 
     return render_template("delete_result.html")
