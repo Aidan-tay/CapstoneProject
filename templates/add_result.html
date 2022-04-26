@@ -1,11 +1,12 @@
 <html>
     <head>
         <title>CCA Manager</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         {% if error == None %}
         
-        <h1> Sucess! </h1>
+        <h2> Success! </h2>
         <br>
         <a href = "/edit?type={{ entity_type }}&id={{ id }}"> Edit Students in your {{ entity_type }}</a>
 
