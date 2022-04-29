@@ -47,8 +47,9 @@ def view_club(field_attributes):
     Converts id to a list of student names in the club
     '''
     # id to students
-    student_list = storage.find_some("Membership", club_id = field_attributes.pop("id"))
-    student_list = [storage.find_one("Student", id=x["student_id"])["name"] for x in student_list]
+    club_id = field_attributes.pop("id")
+    student_list = storage.find_some("Membership", club_id = club_id)
+    student_list = [storage.find_one("Student", id=x["student_id"])["name"] + " " + f"({storage.find_one('Membership', student_id=x['student_id'], club_id = club_id)['role']})" for x in student_list]
     field_attributes["Students"] = student_list
 
     # change the fields into its label
@@ -61,8 +62,9 @@ def view_activity(field_attributes):
     Converts id to a list of student names in the activity
     '''
     # id to students
-    student_list = storage.find_some("Participation", activity_id = field_attributes.pop("id"))
-    student_list = [storage.find_one("Student", id=x["student_id"])["name"] for x in student_list]
+    activity_id = field_attributes.pop("id")
+    student_list = storage.find_some("Participation", activity_id = activity_id)
+    student_list = [storage.find_one("Student", id=x["student_id"])["name"] + " " + f"({storage.find_one('Participation', student_id=x['student_id'], activity_id=activity_id)['role']})" for x in student_list]
     field_attributes["Students"] = student_list
 
     # change the fields into its label
