@@ -24,6 +24,18 @@ label {font-size: 20px;}
 
 select {font-size: 20px;}
 
+table, th, td {
+  border: 1px solid;
+  border-color: #048c85;
+}
+
+td {font-size: 19px; 
+   text-align: center;
+   padding: 5px;}
+
+th {font-size: 20px;
+   padding: 5px;}
+
 #center { text-align: center; 
   margin: 0;
   position: absolute;
