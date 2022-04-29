@@ -1,2 +1,9 @@
 a { color: #000000; }
 body { background-color: #78e3be; }
+#center { text-align: center; 
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);}
+p { text-align: center; }

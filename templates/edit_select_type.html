@@ -3,9 +3,11 @@
         <title>CCA Manager</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
-    <h3> Please select what you would like to edit:</h3>
     
     <body>
+        <div id="center">
+        <h3> Please select what you would like to edit:</h3>
+    
         {% for entity in entity_names %}
         <a href="/edit/select/name?type={{ entity }}"> {{ entity }} </a>
         <br>
@@ -13,5 +15,7 @@
         
         <br>
         <a href="/index"> Back to main menu </a>
+
+        </div>
     </body>
 </html>

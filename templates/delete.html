@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        <div id="center">
         <h3> Please select what you would like to delete:</h3>
         
         {% for x in entity_list %}
@@ -13,6 +14,7 @@
 
         <br>
         <a href="/index"> Back to main menu </a>
-       
+
+        </div>
     </body>
 </html>

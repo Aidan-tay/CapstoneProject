@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        <div id="center">
         <h3> Infomation about {{ field_attributes["Name"] }}:</h3>
         <table>
             {% for key, value in field_attributes.items() %}
@@ -28,5 +29,7 @@
 
         <br>
         <a href="/index"> Back to main menu </a>
+
+        </div>
     </body>
 </html>
