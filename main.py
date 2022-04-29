@@ -287,9 +287,11 @@ def edit_result():
 
     return render_template("edit_result.html", entity_type=entity_type, id=id, name=name, field_inputs=field_inputs, error=error)
 
+
 @app.route("/delete", methods=['POST', 'GET'])
 def delete():
     return render_template("delete.html", entity_list=models.keys())
+
 
 @app.route("/delete/select", methods=['POST', 'GET'])
 def delete_select():
@@ -299,6 +301,7 @@ def delete_select():
     entity_list.sort()
     
     return render_template("delete_select.html", entity_type=entity_type, entity_list=entity_list)
+
 
 @app.route("/delete/result", methods=['POST', 'GET'])
 def delete_result():
