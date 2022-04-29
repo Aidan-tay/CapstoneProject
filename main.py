@@ -44,7 +44,7 @@ def add_result():
     #get type of entity from args
     entity_type = request.args["type"]
 
-    #save the inputs from request.form
+    #save the user inputs from request.form
     form = dict(request.form)
     field_inputs = form
 
@@ -83,6 +83,7 @@ def view_select():
     # get the entity type and find all instances of it in the database
     entity_type = request.args["type"]
     entity_list = storage.find_all(entity_type, field="name")
+    entity_list.sort()
     
     return render_template("view_select.html", entity_type = entity_type, entity_list = entity_list)
 
@@ -92,7 +93,7 @@ def view_result():
     entity_type = request.form["entity_type"]
     field_attributes = storage.find_one(entity_type, name = request.form["name"])
 
-    # replace foreign ids with respective names
+    # replace foreign ids with respective student/class/club/activity names 
     if entity_type == "Student":
         helper.view_student(field_attributes)
 
@@ -118,6 +119,7 @@ def edit_select_name():
     # get the entity type and names of all the instances of that type
     entity_type = request.args["type"]
     entity_list = storage.find_all(entity_type, field="name")
+    entity_list.sort()
 
     return render_template("edit_select_name.html", entity_type=entity_type, entity_list=entity_list)
 
@@ -180,7 +182,7 @@ def edit_add_result():
     entity_type = request.args["type"]
     id = request.args["id"]
 
-    # get the name and field_inpts
+    # get the name and user inputs
     form = dict(request.form)
     name = form.pop("name")
     field_inputs = form
@@ -294,6 +296,7 @@ def delete_select():
     # get the entity type and find all instances of it in the database
     entity_type = request.args["type"]
     entity_list = storage.find_all(entity_type, field="name")
+    entity_list.sort()
     
     return render_template("delete_select.html", entity_type=entity_type, entity_list=entity_list)
 
