@@ -57,9 +57,11 @@ def add_result():
     else:
         form["id"] = storage.find_latest_id(entity_type) + 1
 
-    # validate the inputs using the respective class and catch and save any errors
+    # validate the inputs using the respective class and catch and catch any errors
     try:
         record = models[entity_type].from_dict(form)
+
+        # check if student is already in the club/activity
         if record.get("name") in storage.find_all(entity_type, field="name"):
             raise NameError(f"{record.get('name')} already exists.")
     except Exception as e:
