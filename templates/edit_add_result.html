@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        <div id="center">
         {% if error == None %}
 
             <h1>Success!</h1>
@@ -22,7 +23,8 @@
         </form>
         
         {% endif %}
-        
+
+        </div>
     </body>
 </html>
 

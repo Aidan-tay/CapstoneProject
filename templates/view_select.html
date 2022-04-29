@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        <div id="center">
         {% if entity_list != [] %}
         <form action="/view/result" method="POST">
             <label> Please select a {{ entity_type }}: </label>
@@ -22,5 +23,7 @@
 
         <br>
         <a href="/index"> Back to main menu </a>
+
+        </div>
     </body>
 </html>

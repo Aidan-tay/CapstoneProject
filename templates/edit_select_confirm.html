@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        <div id="center">
         <h3> Is this correct? </h3>
         <br>
         <table>
@@ -31,5 +32,7 @@
         <a href="/edit?type={{ entity_type }}&id={{ id }}"> Yes </a>
         <br>
         <a href="/edit/select/name?type={{ entity_type }}"> No </a>
+
+        </div>
     </body>
 </html>

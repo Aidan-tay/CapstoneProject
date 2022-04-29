@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
+        <div id="center">
         {% if student_list != [] %}
         <form action="/edit/relationship?type={{entity_type}}&id={{id}}" method="POST">
             <label> Please select a student to edit: </label>
@@ -21,6 +22,8 @@
         
         <br>
         <a href="/edit?type={{entity_type}}&id={{id}}">Back to edit menu</a>
+
+        </div>
     </body>
 </html>
 
