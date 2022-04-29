@@ -12,7 +12,27 @@
         <a href="/edit/student?type={{entity_type}}&id={{id}}">Edit or Delete student in {{ entity_type }}</a>
         <br>
         <br>
-        <a href="/index"> Back to main menu </a>
+
+        <table>
+            {% for key, value in field_attributes.items() %}
+            <tr>
+                <th>{{ key }}</th>
+                <td>
+                {% if value == [] or value == "" %}
+                    None
+                {% else %}
+                    
+                {% if isinstance(value, list) %}
+                    {{ ", ".join(value) }}
+                {% else %}
+                    {{ value }}
+                {% endif %}
+                    
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
 
         </div>
     <div class="topnav">

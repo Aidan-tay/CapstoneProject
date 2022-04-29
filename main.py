@@ -148,6 +148,16 @@ def edit():
     # get entity type and id
     entity_type = request.args["type"]
     id = request.args["id"]
+
+    # get data of the record
+    field_attributes = storage.find_one(entity_type, id = id)
+
+    # replace foreign ids with respective names
+    if entity_type == "Club":
+        helper.view_club(field_attributes)
+
+    elif entity_type == "Activity":
+        helper.view_activity(field_attributes)
     
     return render_template("edit.html", entity_type=entity_type, id=id)
 
