@@ -2,7 +2,7 @@ import storage
 
 def view_student(field_attributes):
     '''
-    Converts class_id to class name and id to a list of subject names, club names and activity names
+    Cleans up the field_attributes to be more user friendly as well as converting any foreign keys to their respective names / list of names
     '''
     # class_id to class name
     field_attributes["Class"] = storage.find_one("Class", id=field_attributes.pop("class_id"))["name"]
@@ -30,7 +30,7 @@ def view_student(field_attributes):
     
 def view_class(field_attributes):
     '''
-    Converts id to a list of student names in the class
+    Cleans up the field_attributes to be more user friendly as well as converting any foreign keys to their respective names / list of names
     '''
     # id to students
     student_list = storage.find_some("Student", class_id = field_attributes.pop("id"))
@@ -44,7 +44,7 @@ def view_class(field_attributes):
 
 def view_club(field_attributes):
     '''
-    Converts id to a list of student names in the club
+    Cleans up the field_attributes to be more user friendly as well as converting any foreign keys to their respective names / list of names
     '''
     # id to students
     club_id = field_attributes.pop("id")
@@ -59,7 +59,7 @@ def view_club(field_attributes):
 
 def view_activity(field_attributes):
     '''
-    Converts id to a list of student names in the activity
+    Cleans up the field_attributes to be more user friendly as well as converting any foreign keys to their respective names / list of names
     '''
     # id to students
     activity_id = field_attributes.pop("id")
