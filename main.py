@@ -159,7 +159,7 @@ def edit():
     elif entity_type == "Activity":
         helper.view_activity(field_attributes)
     
-    return render_template("edit.html", entity_type=entity_type, id=id)
+    return render_template("edit.html", entity_type=entity_type, id=id, field_attributes=field_attributes)
 
 
 @app.route("/edit/add", methods=['POST', 'GET'])
