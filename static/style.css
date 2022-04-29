@@ -1,10 +1,17 @@
 a { color: #9E0E7D;
   font-size: 25px;}
-body { background-color: #78e3be; }
+
+body { background-color: #78e3be; 
+     font-family: "Arial", "sans-serif";}
+
 h1 {font-size: 40px;}
+
 h2 {font-size: 34px;}
+
 h3 {font-size: 30px;}
+
 label {font-size: 20px;}
+
 select {font-size: 20px;}
 
 #center { text-align: center; 
@@ -14,22 +21,11 @@ select {font-size: 20px;}
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);}
-p { text-align: center; font-size: 25px; }
+
+p {text-align: center; 
+  font-size: 25px; }
 
 input {background-color:#FFF; text-align: center; font-size: 15px;}
-
-div {font-family: "Arial", "sans-serif";}
-
-
-
-
-
-
-
-
-
-
-
 
 :root {
   --clr-neon: hsl(317 100% 54%);
